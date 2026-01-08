@@ -1,16 +1,101 @@
-🎓 Course Craft – AI-Powered Learning PlatformCourse Craft is a sophisticated SaaS application that allows users to generate comprehensive, structured courses on any topic in seconds using Artificial Intelligence. Built with a focus on speed, scalability, and user experience.🚀 FeaturesAI Course Generation: Input a topic and target audience, and the app uses Google Gemini AI to generate modules, chapters, and content.Interactive Dashboards: A sleek user interface for managing ongoing and completed courses.Progress Tracking: Keep tabs on your learning journey with built-in progress management.Smart Video Integration: Automatically fetches relevant educational videos to supplement text-based learning.Secure Authentication: Robust user login and profile management via Clerk.Responsive Design: Fully optimized for mobile, tablet, and desktop using Tailwind CSS.Database Management: High-performance data handling using Drizzle ORM with Neon (PostgreSQL).🛠️ Tech StackLayerTechnologyFrameworkNext.js 14 (App Router)StylingTailwind CSS + Shadcn UIAI EngineGoogle Gemini AIAuthClerkDatabaseNeon (Serverless PostgreSQL)ORMDrizzle ORMState/FormReact Hooks, Lucide React Icons🏗️ Getting StartedPrerequisitesNode.js 18.x or laterA Google AI (Gemini) API KeyA Clerk account for AuthenticationA Neon DB instanceInstallationClone the repository:Bashgit clone https://github.com/ayushL2007/Course-Craft.git
-cd Course-Craft
-Install dependencies:Bashnpm install
-Environment Setup:Create a .env.local file in the root and add your keys:Code snippetNEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
-CLERK_SECRET_KEY=...
-NEXT_PUBLIC_DATABASE_CONNECTION_STRING=...
-NEXT_PUBLIC_GEMINI_API_KEY=...
-Push Database Schema:Bashnpm run db:push
-Start the development server:Bashnpm run dev
-📂 Project StructurePlaintext├── app/                # Next.js App Router (Pages & Logic)
-├── configs/            # Database and AI configurations
-├── drizzle/            # Database schema and migrations
-├── components/         # Reusable UI components (Shadcn)
-├── public/             # Static assets
-└── lib/                # Shared utility functions
-🤝 ContributingFork the Project.Create your Feature Branch (git checkout -b feature/NewFeature).Commit your changes (git commit -m 'Add some NewFeature').Push to the Branch (git push origin feature/NewFeature).Open a Pull Request.🛡️ LicenseDistributed under the MIT License. See LICENSE for more information.Author: Ayush
+# Course-Craft
+
+**Course-Craft** is a powerful SaaS platform that leverages Google Gemini AI to instantly generate complete, structured online courses on any topic. Simply provide a topic and target audience, and watch as the AI crafts detailed modules, chapters, lessons, and even integrates relevant educational videos.
+
+Perfect for educators, content creators, and learners who want high-quality courses in seconds!
+
+## Features
+
+- **AI-Powered Course Generation**: Powered by Google Gemini AI to create comprehensive courses with structured content.
+- **Interactive Dashboard**: Manage your created courses, track progress, and view analytics in a modern, user-friendly interface.
+- **Progress Tracking**: Built-in tools to monitor learning progress across modules.
+- **Smart Video Integration**: Automatically embeds relevant educational videos to enhance lessons.
+- **Secure Authentication**: Seamless user login and profile management with Clerk.
+- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices using Tailwind CSS and Shadcn UI.
+- **Scalable Backend**: Serverless PostgreSQL database with Neon and efficient ORM via Drizzle.
+
+## Tech Stack
+
+- **Frontend/Backend**: HTML, CSS, JS and Ruby on Rails
+- **Styling**: CSS3
+- **AI**: Google Gemini API
+- **Authentication**: Clerk
+- **Database**: Neon (Serverless PostgreSQL)
+- **ORM**: Drizzle ORM
+- **Icons**: Lucide React
+
+## Prerequisites
+
+- Rails 7+
+- A Google Gemini API key
+- Neon PostgreSQL database (connection string)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ayushL2007/Course-Craft.git
+   cd Course-Craft
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   bundle install
+   ```
+
+3. Create a `.env.local` file in the root directory and add the following environment variables:
+
+   ```env
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   DATABASE_URL=your_neon_postgresql_connection_string
+   GEMINI_API_KEY=your_google_gemini_api_key
+   ```
+
+   > Note: Use `NEXT_PUBLIC_` prefix for client-side variables.
+
+## Usage
+
+1. Start the development server:
+
+   ```bash
+   rails s
+   ```
+
+2. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+
+4. Enter a course topic and target audience to generate a new course.
+
+5. Explore the dashboard to view, edit, track progress, and enjoy integrated content!
+
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Open a Pull Request.
+
+Please ensure your code follows the project's style and includes tests where applicable.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- Google Gemini for the AI capabilities
+- Clerk for authentication
+- Neon for database hosting
+- All open-source libraries used in the tech stack
+
+---
+
+Built with ❤️ by [ayushL2007](https://github.com/ayushL2007)
+
+If you like this project, give it a ⭐ on GitHub!
