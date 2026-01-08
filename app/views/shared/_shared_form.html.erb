@@ -1,0 +1,48 @@
+<%=stylesheet_link_tag "user_style"%>
+
+
+<div class="crystal-container">
+  <div class="crystal-card">
+    <div class="shine"></div>
+    
+    <h2 class="title"><%=title%></h2>
+
+    <%= form_with model: user do |f| %>
+
+        <div class="input-wrapper">
+        <%= f.label :username %>
+        <%= f.text_field :username, placeholder: "example_com", value: (user.username unless user.username.nil?) %>
+        </div>
+
+        <div class="input-wrapper">
+        <%= f.label :email %>
+        <%= f.text_field :email, placeholder: "abc@somesite.com", value: (user.email unless user.email.nil?)%>
+        </div>
+
+        <div class="input-wrapper">
+        <%= f.label :full_name %>
+        <%= f.text_field :full_name, value: (user.full_name unless user.full_name.nil?) %>
+
+        </div>
+        <div class="input-wrapper">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+        </div>
+        <div class="input-wrapper">
+        <%= f.label :confirm_password %>
+        <%= f.password_field :password_onfirmation %>
+        </div>
+
+        <% if flash[:alert] %>
+            <div class="input-wrapper">
+                <%= flash[:alert] %>
+            </div>
+        <% end %>
+
+    <%= f.submit button, class: "submit-btn" %>
+
+    <%end%>
+
+    <%= button_to "Delete Account", user, method: :delete, data: { confirm: "Are you sure?" }, class: "submit-btn", style: "background: red;width: 100%;"  if title=="Edit Profile"%>
+    </div>
+</div>

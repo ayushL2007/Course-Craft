@@ -1,0 +1,111 @@
+/* Page Background */
+.crystal-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1e3a8a, #0f172a, #000000);
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 20px;
+}
+
+/* The Crystal Tile */
+.crystal-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Reflective Shine Effect */
+.shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.08) 50%, transparent 55%);
+  pointer-events: none;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  letter-spacing: -0.025em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-wrapper label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #bfdbfe; /* blue-200 */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  margin-left: 4px;
+}
+
+.input-wrapper input {
+  width: 90%;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper
+
+.input-wrapper input::placeholder {
+  color: rgba(191, 219, 254, 0.4);
+}
+
+.input-wrapper input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
+}
+
+/* The Blue/Indigo Button */
+.submit-btn {
+  display: block;  
+  margin: 10px auto 0;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(to right, #d59330, #ebda44);
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 20px -3px rgba(59, 130, 246, 0.5);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}

@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1e3a8a, #0f172a, #000000);
+  background-size: cover;      
+  background-position: center;     
+  background-repeat: repeat;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: block;
+  justify-content: left;
+  align-items: flex-start; /* Align to top for natural flow */
+}
+
+.superparent-tile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Key: Wrap to next row when space ends */
+  justify-content: center; /* Center tiles horizontally */
+  gap: 2%; /* Space between tiles */
+  padding: 2% 2%;
+  margin-top: 3%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tile {
+  flex: 0 1 300px; /* Grow a bit if needed, but base width 300px */
+  max-width: 320px; /* Prevent getting too wide */
+  height: 320px;
+  margin: 1%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.tile:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.description {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.count {
+  font-size: 3em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #f6d365, #fda085);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.label {
+  font-size: 1em;
+  opacity: 0.85;
+  margin-top: 8px;
+}
+
+/* Mobile: Tiles take more space, stack naturally */
+@media (max-width: 768px) {
+  .tile {
+    flex: 0 1 90%; /* Almost full width on small screens */
+    max-width: 90%;
+  }
+}

@@ -1,0 +1,180 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  max-width: 1300px;
+  height: 80px;
+  margin: 2vh auto;
+  padding: 0 30px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  gap: 20px;
+}
+
+
+/* Logo Section (Extreme Left) */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.logo:hover{
+  transform: scale(1.1);
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #3b82f6, #4f46e5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Central Search/Dropdown Group */
+.central-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+  justify-content: center;
+}
+
+.dropdown {
+  position: relative;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+select {
+  width: 100%;
+  height: 48px;
+  padding: 0 35px 0 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+select option {
+  color: #333;
+  background: white;
+}
+
+.dropdown::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  font-size: 0.7em;
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 400px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 0 25px;
+  font-size: 1em;
+  color: white;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus, select:focus {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.user-profile {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(to right, #3b82f6, #4f46e5); /* Your Blue/Indigo theme */
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile:hover {
+  transform: scale(1.1);
+}
+
+.user-profile img {
+  min-width: 40px;
+  min-height: 40px;
+  border: 2px solid #0f172a; /* Creates a gap effect */
+  object-fit: cover;
+}
+
+/* Container must be relative so the dropdown knows where to align */
+.user-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile-floating-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%;    /* Places it directly below the icon */
+  right: 0;     /* Aligns it to the right edge */
+  width: 160px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.15); /* Gives it depth */
+  z-index: 9999; /* Higher than any other element on the page */
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+/* Class to show the menu via JS */
+.profile-floating-menu.active {
+  display: block;
+}
+
+.menu-item {
+  padding: 12px 15px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f8f9fa;
+  color: #000;
+}

@@ -1,0 +1,56 @@
+<%=stylesheet_link_tag "user_style"%>
+
+
+<div class="min-h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-slate-900 to-black flex items-center justify-center p-6">
+
+    <div class="crystal-container">
+        <div class="crystal-card">
+            <div class="shine"></div>
+            
+            <h2 class="title">User Settings</h2>
+
+            <% if @user.present? %>
+
+              <form class="form-group">
+              <div class="input-wrapper">
+                  <label>Full Name</label>
+                  <input type="text" placeholder="<%=@user.full_name%>">
+              </div>
+
+              <div class="input-wrapper">
+                  <label>Username</label>
+                  <input type="text" placeholder="<%=@user.username%>">
+              </div>
+
+              <div class="input-wrapper">
+                  <label>Email Address</label>
+                  <input type="email" placeholder="<%=@user.email%>">
+              </div>
+
+              <div class="input-wrapper">
+                  <label>Password</label>
+                  <input type="password" placeholder="<%="*" *@user.password_digest.size%>">
+              </div>
+
+              <button type="submit" class="submit-btn" onclick="redirect('/user/1/edit')">Update Profile</button>
+              </form>
+
+            <% else %>
+              <div class="input-wrapper">
+                <button type="submit" class="submit-btn" onclick="redirect('/login')">Login</button>
+              </div>
+
+              <div class="input-wrapper">
+                <button type="submit" class="submit-btn" onclick="redirect('/user/new')">Sign Up</button>
+              </div>
+            <% end %>
+        </div>
+    </div>
+  
+</div>
+
+<script>
+  function redirect(link){
+    window.location.href = location.origin + link
+  }
+</script>

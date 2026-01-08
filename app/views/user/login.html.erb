@@ -1,0 +1,35 @@
+<%= stylesheet_link_tag "user_style" %>
+
+<div class="crystal-container">
+  <div class="crystal-card">
+    <div class="shine"></div>
+    
+    <h2 class="title">User Login</h2>
+
+    <%# form_with is the modern Rails standard for forms %>
+    <%= form_with url: login_path(after: params[:after]), method: :post, local: true do |f| %>
+      
+      <div class="input-wrapper">
+        <%= f.label :username %>
+        <%= f.text_field :username, placeholder: "example_com" %>
+      </div>
+
+      <div class="input-wrapper">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+
+      <% if flash[:alert] %>
+        <div class="input-wrapper">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    
+    <%=link_to "Sign up", new_user_path, style:"color:red;margin:10px;"%>
+
+    <%= f.submit "Login", class: "submit-btn" %>
+
+    <%end%>
+
+  </div>
+</div>

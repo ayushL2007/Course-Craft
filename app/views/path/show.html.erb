@@ -1,0 +1,165 @@
+
+    <div class="raised-tile">
+        <h1>Course Tracker</h1>
+        <p>Complete the course and tick the box</p>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="percentage-text" id="progressText">0% Complete</div>
+
+        <div class="checkbox-list">
+            <%@roadmap.each do |key, value|%>
+            <label class="checkbox-item">
+                <input type="checkbox" class="task-checkbox" value=<%=key%>>
+                <span class="checkmark"></span>
+                <%=link_to value["name"], value["link"]%>
+            </label>
+            <%end%>
+        </div>
+</div>
+
+<style>
+/* CSS Styling */
+:root {
+    --bg-color: #e0e5ec9e;
+    --tile-shadow: 4px 4px 6px rgb(163,177,198,0.6), -4px -4px 4px rgba(255,255,255, 0.5);
+    --primary-blue: #4a90e2;
+}
+
+.raised-tile {
+    background-color: var(--bg-color);
+    padding: 2rem;
+    border-radius: 30px;
+    max-width: 50%;
+    box-shadow: var(--tile-shadow);
+    text-align: center;
+    margin-left: 25%;
+}
+
+h1 { color: #444; margin-bottom: 5px; }
+p { color: #777; font-size: 0.9rem; margin-bottom: 25px; }
+
+/* Progress Bar Styles */
+.progress-container {
+    background: #d1d9e6;
+    height: 12px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #ffffff;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 10px;
+    transition: width 0.4s ease-in-out;
+}
+
+.percentage-text {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+}
+
+/* Checkbox List Styles */
+.checkbox-list {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.05rem;
+    color: #444;
+    transition: transform 0.2s;
+}
+
+.checkbox-item:hover { transform: scale(1.01); }
+
+.checkbox-item input { display: none; }
+
+.checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: var(--bg-color);
+    border-radius: 6px;
+    margin-right: 15px;
+    box-shadow: 3px 3px 6px #b8b9be, -3px -3px 6px #ffffff;
+    display: inline-block;
+    position: relative;
+}
+
+input:checked ~ .checkmark {
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #ffffff;
+}
+
+input:checked ~ .checkmark::after {
+    content: "✓";
+    position: absolute;
+    left: 5px;
+    top: -2px;
+    color: var(--primary-blue);
+    font-weight: bold;
+}
+
+input:checked + .checkmark + text {
+    text-decoration: line-through;
+    color: #999;
+}
+</style>
+
+<script>
+// JavaScript Logic
+const checkboxes = document.querySelectorAll('.task-checkbox');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+
+function updateProgress() {
+    const total = checkboxes.length;
+    const checked = document.querySelectorAll('.task-checkbox:checked');
+    const len_checked = checked.length;
+    const percentage = Math.round((len_checked / total) * 100);
+
+    const values = [];
+    checked.forEach(cb => values.push(cb.value));
+    sendData(values);
+
+
+    progressBar.style.width = percentage + '%';
+    progressText.innerText = percentage + '% Complete';
+}
+
+function checkbox(){
+    let rating = <%=@roadmap.select {|k, v| k.include?("rating")}.to_json.html_safe%>;
+    console.log(rating);
+}
+
+function sendData(key) {
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/update_progress', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token
+        },
+        body: JSON.stringify({
+            name: key,      // e.g., "task_1"
+            id: <%=@id%>
+        })
+    });
+}
+
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateProgress);
+});
+</script>

@@ -1,0 +1,182 @@
+
+<head>
+
+  <style>
+
+    body{
+      background: radial-gradient(circle at center,  #5f77b0ff, #1e3a8a, #000000);
+    }
+
+    .tiles-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 5%; /* Space between tiles */
+      margin-bottom: 40px;
+      flex-wrap: nowrap; /* Keep horizontal on wide screens */
+    }
+
+    .tile {
+      width: 30%;
+      height: 50vh; 
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      box-sizing: border-box;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      opacity: 0.7; /* Default unselected state */
+    }
+
+    .tile.selected {
+      opacity: 1;
+      border: 3px solid #fda085;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      transform: translateY(-12px);
+    }
+
+    .tile:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .tile-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .tile-desc ul {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .tile-desc ul li{
+      min-height: 3em;         /* Approx. height of 2 lines (adjust based on font) */
+      line-height: 1.5em;      /* Each line is 1.5em tall → 2 lines = 3em */
+      padding: 0.75em 1em;     /* Comfortable inner spacing */
+      border-bottom: 1px solid #eee;  /* Optional separator */
+      display: flex;
+      align-items: center;     /* Vertically center content within the 2-line height */
+      overflow: hidden;
+    }
+
+    .text-below {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      font-size: 1.5em;
+      line-height: 1.6;
+      opacity: 0.95;
+      color:white;
+    }
+
+    .enroll-btn {
+      display: inline-block;
+      padding: 18px 60px;
+      font-size: 1.6em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #f6d365, #fda085);
+      color: #333;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(253, 160, 133, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .enroll-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(253, 160, 133, 0.7);
+    }
+
+    /* Responsive: Stack tiles vertically on smaller screens */
+    @media (max-width: 1024px) {
+      .tiles-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .tile {
+        width: 80%;
+        height: 35vh;
+        margin-bottom: 20px;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+    <!-- Horizontal Tiles (only one selectable at a time) -->
+    <div class="tiles-row">
+      <%response.each do |model, result|%>
+        <%totalDuration = 0%>
+        <div class="tile" data-level="<%=model%>">
+          <div class="tile-title"><%=model%></div>
+          <div class="tile-desc">
+            <ul>
+              <% result.each do |course, info|%>
+              <%break if course=="summary"%>
+              <li><%= info["name"] + " - " + info["duration"]%></li>
+              <%end%>
+            </ul>
+          </div>
+        </div>
+      <%end%>
+    </div>
+
+    <!-- Text Below the Tiles -->
+    <p class="text-below" id = "summary">
+    </p>
+
+    <!-- Enroll Button -->
+    <div style="display: flex; flex-direction: row; justify-content: center;">
+      <button class="enroll-btn" onclick="handleEnroll()">
+        Enroll Now
+      </button>
+    </div>
+ 
+  <script>
+    const roadmapData = <%= response.to_json.html_safe %>;
+    var model="";
+
+    // Add click handlers to tiles for single selection
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        // Remove 'selected' class from all tiles
+        document.querySelectorAll('.tile').forEach(t => t.classList.remove('selected'));
+
+        // Add 'selected' class to the clicked tile
+        tile.classList.add('selected');
+
+        // Store selected level
+        model = tile.dataset.level;
+        console.log(roadmapData[model].summary);
+        if (roadmapData[model]) {
+          document.getElementById("summary").innerText = roadmapData[model].summary;
+        } else {
+          document.getElementById("summary").innerText = "Summary not found.";
+        }
+      });
+
+      tile.dispatchEvent(new Event('click'));
+    });
+
+    // Handle Enroll button click
+    function handleEnroll() {
+      window.location.href = location.origin 
+                              + "/enroll?model="+model
+                              + "&cache_key="+ "<%=cache_key%>" ;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<head>
+    <style>
+        .spinner {
+        margin: 100px auto;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        text-align: center;
+        
+        -webkit-animation: sk-rotate 2.0s infinite linear;
+        animation: sk-rotate 2.0s infinite linear;
+        }
+
+        .dot1, .dot2 {
+        width: 80%;
+        height: 80%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: #f2efefff;
+        border-radius: 100%;
+        
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+        }
+
+        .dot2 {
+        top: auto;
+        bottom: 0;
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+        }
+
+        @-webkit-keyframes sk-rotate { 100% { -webkit-transform: rotate(360deg) }}
+        @keyframes sk-rotate { 100% { transform: rotate(360deg); -webkit-transform: rotate(360deg) }}
+
+        @-webkit-keyframes sk-bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+        }
+
+        @keyframes sk-bounce {
+        0%, 100% { 
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        } 50% { 
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+        }
+    </style>
+</head>
+<body style="margin:0; height:100vh; overflow:hidden; background:#f0f4f8; display:flex; justify-content:center; align-items:center; font-family:sans-serif;">
+
+    <!-- Loading Overlay -->
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>  
+
+        <!-- Loading Text -->
+        <p style="margin-top:40px; font-size:28px; color:#e2e8f0; letter-spacing:8px;">
+            LOADING
+            <span style="animation:pulse 1.5s infinite;">.</span>
+            <span style="animation:pulse 1.5s infinite 0.3s;">.</span>
+            <span style="animation:pulse 1.5s infinite 0.6s;">.</span>
+        </p>
+
+    <!-- Main Content (hidden initially) -->
+    <div id = "error" style="display:none; text-align:center; padding:50px; color:#333;">
+    </div>
+
+    <script>
+        window.onload = function() {
+            document.querySelector('div[style*="z-index:9999"]').style.display = 'none';
+            document.querySelector('div[style*="text-align:center"]').style.display = 'block';
+        };
+        
+        const query = window.location.href.replace("search", "result");
+
+        async function getResult(){
+            window.location.href = window.location.href.replace("search", "result");
+        }
+        
+        getResult();
+    </script>
+
+</body>
+</html>

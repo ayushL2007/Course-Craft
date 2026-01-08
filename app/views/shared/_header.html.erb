@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container">
+  <!-- Left Dropdown -->
+  <div class="logo" onclick="redirect('/')">
+    <div class="logo-circle">📖</div>
+    <span>CourseCraft</span>
+  </div>
+
+
+  <div class="dropdown">
+    <select id="leftSelect" class="select">
+      <option value="">Start Level</option>
+      <option value="beginner">Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
+    </select>
+  </div>
+
+  <!-- Central Search Bar -->
+  <input type="text" value="<%=header.title if header != nil%>" class="search-bar" placeholder="Search... 🔍" id="searchInput">
+
+  <!-- Right Dropdown -->
+  <div class="dropdown">
+    <select id="rightSelect" class="select">
+      <option value="">End Level</option>
+    </select>
+  </div>
+
+
+  <div class="user-menu-wrapper">
+    <div class="user-profile" id="userProfileBtn">
+      <i class="fa-solid fa-face-smile"></i>
+    </div>
+
+    <div class="profile-floating-menu" id="profileDropdown">
+      <div class="menu-item" onclick="redirect('/user/1')">
+        <i class="fa-solid fa-user"></i> View Profile
+      </div>
+      <div class="menu-item" onclick="redirect('/logout')">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+const leftSelect = document.getElementById('leftSelect');
+  const rightSelect = document.getElementById('rightSelect');
+
+  // Define the full list of options for the right dropdown (text, value pairs)
+  const allRightOptions = [
+    { text: 'Beginner', value: 'beginner' },
+    { text: 'Intermediate', value: 'intermediate' },
+    { text: 'Advanced', value: 'advanced' }
+  ];
+
+  leftSelect.addEventListener('change', (e) => {
+    const level = e.target.value.toLowerCase();
+    let numOptions = 3;
+
+    switch (level) {
+      case "intermediate":
+        numOptions = 1;
+        break;
+      case "advanced":
+        numOptions = 2;
+        break;
+      default:
+        numOptions = 0;
+        break;
+    }
+
+    rightSelect.innerHTML = '<option value="">End Level</option>';
+
+    for (let i = numOptions; i < 3; i++) {
+      const opt = allRightOptions[i];
+      if (opt) {
+        const newOption = new Option(opt.text, opt.value);
+        rightSelect.add(newOption);
+      }
+    }
+
+  });
+
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('keydown', (e) => {
+    console.log('Searching:', e.key);
+    const valuesOnly = allRightOptions.map(option => option.value);
+
+    if(e.key==='Enter' && valuesOnly.includes(leftSelect.value) && valuesOnly.includes(rightSelect.value)){
+      const search_term = "?topic="+searchInput.value.trim();
+      const startLevel = "&startLevel="+leftSelect.value;
+      const endLevel = "&endLevel="+rightSelect.value;
+
+      window.location.href = location.origin + "/search" +
+                              search_term +
+                              startLevel +
+                              endLevel;
+    }
+  });
+
+  const userProfileBtn = document.getElementById('userProfileBtn');
+  const profileDropdown = document.getElementById('profileDropdown');
+
+  // Toggle dropdown visibility
+  userProfileBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle('active');
+  });
+
+  window.addEventListener('click', (e) => {
+  // If the click is NOT the button AND NOT inside the dropdown
+  if (!userProfileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+    profileDropdown.classList.remove('active');
+  }
+});
+
+  // Existing redirect function
+  function redirect(link) {
+    window.location.href = window.location.origin + link;
+  }
+</script>

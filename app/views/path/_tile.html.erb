@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag "tile_style" %>
+
+<%unless path.nil?%>
+  <div class="superparent-tile">
+    <% path.all.each do |t| %>
+      <span class="tile" onclick="open_path(<%= t.id %>)">
+        <div class="title"><%= t.title %></div>
+        <div class="description"><%= t.description[0..100]+"..." %></div>
+        <div class="label">People Joined</div>
+      </span>
+    <% end %>
+  </div>
+<%else%>
+  <div class="tile"><%=error%></div>
+<%end%>
+
+<script>
+  function open_path(id) {
+    window.location.href += "path/" + id;
+    
+  }
+</script>
