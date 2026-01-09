@@ -9,14 +9,20 @@
         <div class="percentage-text" id="progressText">0% Complete</div>
 
         <div class="checkbox-list">
-            <%@roadmap.each do |key, value|%>
+            <%@courses.each do |key, value|%>
             <label class="checkbox-item">
                 <input type="checkbox" class="task-checkbox" value=<%=key%>>
                 <span class="checkmark"></span>
-                <%=link_to value["name"], value["link"]%>
+                <%=link_to value["name"] + " ~ "+ value["duration"], value["link"]%>
             </label>
             <%end%>
         </div>
+
+        <div>
+            <%=@roadmap["summary"]%>
+        </div>
+
+
 </div>
 
 <style>
@@ -138,10 +144,7 @@ function updateProgress() {
     progressText.innerText = percentage + '% Complete';
 }
 
-function checkbox(){
-    let rating = <%=@roadmap.select {|k, v| k.include?("rating")}.to_json.html_safe%>;
-    console.log(rating);
-}
+
 
 function sendData(key) {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

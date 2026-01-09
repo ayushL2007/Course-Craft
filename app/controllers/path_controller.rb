@@ -23,8 +23,9 @@ class PathController < ApplicationController
         @path_info = @path.path_info
 
         @roadmap = @path.roadmaps.first
-        @roadmap = @roadmap.attributes.select { |k,v| k.include?("course") && !v.nil?}
-        @roadmap = to_hash(@roadmap.to_s)
+        @courses = @roadmap.attributes.select { |k,v| k.include?("course") && !v.nil?}
+        # @roadmap = to_hash(@roadmap.to_s)
+        @courses = to_hash(@courses.to_s)
       end
     end
 
@@ -36,7 +37,7 @@ class PathController < ApplicationController
 
     private
     def is_authenticated
-      User.find_by(username:session[:username]).present?
+      User.find_by(username: session[:username]).present?
     end
 
     private

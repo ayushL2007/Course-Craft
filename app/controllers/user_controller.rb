@@ -14,6 +14,7 @@ class UserController < ApplicationController
     def create
       @user = User.new(allowed_params)
       if @user.save
+
         redirect_to user_path(@user, username: @user.username)
       else
         flash.now[:alert] = "Sign Up Failed! Invalid credentials"
@@ -28,7 +29,7 @@ class UserController < ApplicationController
 
     def update
       if User.update(allowed_params)
-        redirect_to user_path(1)
+        redirect_to login
       else
         flash[:alert] = "Profile update failed due to some reason"
         redirect_to edit_user_path

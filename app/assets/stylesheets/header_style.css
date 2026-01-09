@@ -34,14 +34,26 @@
   transform: scale(1.1);
 }
 
+.logo-circle:hover{
+  transform: scale(1.1);
+}
+
+/* Container styling */
 .logo-circle {
-  width: 40px;
+  width: 40px;  /* Match your design size */
   height: 40px;
-  background: linear-gradient(135deg, #3b82f6, #4f46e5);
   border-radius: 50%;
+  overflow: hidden; /* Clips the image into a circle */
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Image styling */
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents stretching by cropping to fit */
 }
 
 /* Central Search/Dropdown Group */
