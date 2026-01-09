@@ -46,6 +46,7 @@ gem "bcrypt", require: false
 gem "ruby_llm", require: false
 
 gem "prawn", require: false
+gem "matrix", require: false
 
 gem "prawn-templates", require: false
 group :development, :test do
