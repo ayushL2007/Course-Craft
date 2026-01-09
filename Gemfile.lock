@@ -81,7 +81,7 @@ GEM
     afm (1.0.0)
     ast (2.4.3)
     base64 (0.3.0)
-    bcrypt (3.1.20)
+    bcrypt (3.1.21)
     bcrypt_pbkdf (1.1.2)
     bigdecimal (4.0.1)
     bindex (0.8.1)
@@ -416,6 +416,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  matrix
   pg (~> 1.1)
   prawn
   prawn-templates
