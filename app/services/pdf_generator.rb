@@ -1,20 +1,26 @@
 # app/services/certificate_generator.rb
+require "prawn"
+require "prawn/templates"
+
 class PdfGenerator
-  def self.call(original_pdf_path, output_path, student_name, course_name)
-    # We use Prawn with the original certificate as a 'template'
-    Prawn::Document.generate(output_path, template: original_pdf_path) do |pdf|
+  def self.call(student_name, course_name)
+    template_path = Rails.root.join("app", "assets", "pdf_assets", "certificate.pdf")
+    output_path = Rails.root.join("app", "assets", "pdf_assets", "certificate_final.pdf")
+    Prawn::Document.generate(output_path, template: template_path) do |pdf|
+      # Ensure we are targeting the first page of the template
+      pdf.go_to_page(1)
 
       # 1. Add the Student Name
       pdf.font "Helvetica", style: :bold
-      pdf.font_size 24
-      # Adjust [x, y] based on your certificate design
-      pdf.draw_text student_name, at: [150, 450] 
+      pdf.font_size 30
+      pdf.draw_text student_name, at: [260, 320]
 
       # 2. Add the Course Name
       pdf.font "Helvetica", style: :italic
-      pdf.font_size 18
-      # Lower Y value moves the text down
-      pdf.draw_text course_name, at: [150, 380]
+      pdf.font_size 24
+      pdf.draw_text course_name, at: [260, 220]
     end
+
+    output_path
   end
 end

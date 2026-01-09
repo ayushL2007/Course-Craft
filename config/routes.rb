@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   get "/search", to: "search#search"
   get "/result", to: "search#result"
   get "/enroll", to: "search#enroll"
+  get "/complete", to: "path#complete"
 end

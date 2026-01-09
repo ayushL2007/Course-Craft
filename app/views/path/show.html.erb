@@ -11,7 +11,7 @@
         <div class="checkbox-list">
             <%@courses.each do |key, value|%>
             <label class="checkbox-item">
-                <input type="checkbox" class="task-checkbox" value=<%=key%>>
+                <input type="checkbox" class="task-checkbox">
                 <span class="checkmark"></span>
                 <%=link_to value["name"] + " ~ "+ value["duration"], value["link"]%>
             </label>
@@ -124,45 +124,52 @@ input:checked + .checkmark + text {
 </style>
 
 <script>
-// JavaScript Logic
-const checkboxes = document.querySelectorAll('.task-checkbox');
-const progressBar = document.getElementById('progressBar');
-const progressText = document.getElementById('progressText');
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
 
-function updateProgress() {
-    const total = checkboxes.length;
-    const checked = document.querySelectorAll('.task-checkbox:checked');
-    const len_checked = checked.length;
-    const percentage = Math.round((len_checked / total) * 100);
+    function updateProgress(e) {
+        const total = checkboxes.length;
+        const checkedCount = document.querySelectorAll('.task-checkbox:checked').length;
+        const percentage = Math.round((checkedCount / total) * 100);
 
-    const values = [];
-    checked.forEach(cb => values.push(cb.value));
-    sendData(values);
+        // Update UI
+        progressBar.style.width = percentage + '%';
+        progressText.innerText = percentage + '% Complete';
 
+        // Save progress to database
+        if (e) {
+            sendData(e.target.value); 
+        }
 
-    progressBar.style.width = percentage + '%';
-    progressText.innerText = percentage + '% Complete';
-}
+        // Trigger completion
+        if (percentage === 100) {
+            // Short delay so the user sees the bar hit 100% before jumping
+            setTimeout(() => {
+                window.location.href = "/complete?id=<%= params[:id] %>";
+            }, 500);
+        }
+    }
 
+    function sendData(key) {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch('/update_progress', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': token
+            },
+            body: JSON.stringify({
+                name: key,
+                id: "<%= @id %>"
+            })
+        });
+    }
 
-
-function sendData(key) {
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    fetch('/update_progress', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': token
-        },
-        body: JSON.stringify({
-            name: key,      // e.g., "task_1"
-            id: <%=@id%>
-        })
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
     });
-}
 
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateProgress);
-});
+    // Run once on load in case some are already checked from the DB
+    updateProgress();
 </script>

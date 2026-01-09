@@ -35,6 +35,17 @@ class PathController < ApplicationController
       @roadmap = Roadmap.find params[:id]
     end
 
+    def complete
+      @user = User.find_by(username: session[:username])
+      @path = Path.find params[:id]
+      pdf_path = PdfGenerator.call(@user.full_name, @path.title)
+
+      send_file pdf_path,
+              filename: "Your_Certificate.pdf",
+              type: "application/pdf",
+              disposition: "attachment"
+    end
+
     private
     def is_authenticated
       User.find_by(username: session[:username]).present?
