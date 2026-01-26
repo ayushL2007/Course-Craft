@@ -27,4 +27,6 @@ Rails.application.routes.draw do
   get "/result", to: "search#result"
   get "/enroll", to: "search#enroll"
   get "/complete", to: "path#complete"
+
+  get "/sitemap", to: "sitemap#main"
 end
